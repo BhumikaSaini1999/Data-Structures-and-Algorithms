@@ -8,24 +8,9 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+//Using BFS Approach
 //Using HashMaps
-class Node {
-    public int val;
-    public List<Node> neighbors;
-    public Node() {
-        val = 0;
-        neighbors = new ArrayList<Node>();
-    }
-    public Node(int _val) {
-        val = _val;
-        neighbors = new ArrayList<Node>();
-    }
-    public Node(int _val, ArrayList<Node> _neighbors) {
-        val = _val;
-        neighbors = _neighbors;
-    }
-}
-public class CloneOfGraph {
+public class CloneOfGraph_BFS {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -93,22 +78,43 @@ public class CloneOfGraph {
 		if(node==null)
 			return null;
 		
-		Map<Integer,Node> map=new HashMap<Integer,Node>();
+		Map<Node,Node> map=new HashMap<Node,Node>();
 		return CloneGraphUtil(node,map);
 	}
 
-	private static Node CloneGraphUtil(Node node, Map<Integer, Node> map) {
+	private static Node CloneGraphUtil(Node node, Map<Node, Node> map) {
 		// TODO Auto-generated method stub
-		if(map.containsKey(node.val))
-			return map.get(node.val);
-			
-		Node copy=new Node(node.val);
-		map.put(node.val,copy);
-		for(Node neighbor : node.neighbors)
+		Queue<Node> q=new LinkedList<Node>();
+		q.add(node);
+		
+		Node copy=null;
+		if(!map.containsKey(node))//Obviously first node won't be in a map
+
 		{
-			copy.neighbors.add(CloneGraphUtil(neighbor,map));
+			copy=new Node(node.val);
+			map.put(node, copy);
 		}
-		return copy;
+		Node clone=copy;  //This clone node we will return
+		
+		while(!q.isEmpty())
+		{
+			Node front=q.poll();
+			for(Node neighbor:front.neighbors)
+			{
+				if(!map.containsKey(neighbor))                     //If neighbor not visited
+				{
+					copy=new Node(neighbor.val);                   //Creating copy of it
+					map.put(neighbor, copy);                       //Marking it as visited
+					map.get(front).neighbors.add(copy);            //Updating neighbors list
+					q.add(neighbor);
+				}
+				else
+				{
+					map.get(front).neighbors.add(map.get(neighbor));    //Updating neighbors list of copy node
+				}
+			}
+		}
+		return clone;
 	}
 
 }
