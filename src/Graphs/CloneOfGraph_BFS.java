@@ -105,13 +105,10 @@ public class CloneOfGraph_BFS {
 				{
 					copy=new Node(neighbor.val);                   //Creating copy of it
 					map.put(neighbor, copy);                       //Marking it as visited
-					map.get(front).neighbors.add(copy);            //Updating neighbors list
 					q.add(neighbor);
 				}
-				else
-				{
-					map.get(front).neighbors.add(map.get(neighbor));    //Updating neighbors list of copy node
-				}
+				
+				map.get(front).neighbors.add(map.get(neighbor));    //Updating neighbors list of copy node
 			}
 		}
 		return clone;
