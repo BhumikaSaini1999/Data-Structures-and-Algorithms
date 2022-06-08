@@ -3,9 +3,9 @@ package Graphs;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//Time->O(V+E),Space->O(V)
-//Here Graph is Undirected and disconnected
-public class CycleDetectionDFS {
+//Time->O(V+E),Space->O(3V)=>O(V)=>visited Array+dfsVisited Array+Auxiliary stack space
+//1-Based Indexing of Directed Graph
+public class CycleDetectionDFS_Directed {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -17,7 +17,7 @@ public class CycleDetectionDFS {
 		int e=sc.nextInt();
 		
 		ArrayList<ArrayList<Integer>> adj=new ArrayList<ArrayList<Integer>>();
-		for(int i=0;i<v;i++)
+		for(int i=0;i<=v;i++)
 		{
 			adj.add(new ArrayList<Integer>());
 		}
@@ -28,7 +28,6 @@ public class CycleDetectionDFS {
 			int source=sc.nextInt();
 			int destination=sc.nextInt();
 			adj.get(source).add(destination);
-			adj.get(destination).add(source);
 		}
 		
 		System.out.println(cycleDetection(adj,v));
@@ -36,35 +35,33 @@ public class CycleDetectionDFS {
 	}
 
 	private static boolean cycleDetection(ArrayList<ArrayList<Integer>> adj, int v) {
-		// TODO Auto-generated method stub
-		boolean visited[]=new boolean[v];
+		boolean visited[]=new boolean[v+1];
+		boolean dfsVisited[]=new boolean[v+1];
 		for(int i=0;i<v;i++)
 		{
-			if(!visited[i])
-			{
-				if(detectCycle(i,-1,visited,adj))
-				{
-					return true;
-				}
-			}
+			if(DFSCycle(i,adj,visited,dfsVisited))
+				return true;
 		}
+		
 		return false;
 	}
 
-	private static boolean detectCycle(int sv, int parent, boolean[] visited, ArrayList<ArrayList<Integer>> adj) {
-		// TODO Auto-generated method stub
+	private static boolean DFSCycle(int sv, ArrayList<ArrayList<Integer>> adj, boolean[] visited, boolean[] dfsVisited) {
 		visited[sv]=true;
+		dfsVisited[sv]=true;
+		
 		
 		for(Integer i:adj.get(sv))
 		{
 			if(!visited[i])
 			{
-				if(detectCycle(i,sv,visited,adj))
+				if(DFSCycle(i,adj,visited,dfsVisited))
 					return true;
 			}
-			else if(parent!=i)
+			else if(dfsVisited[i])
 				return true;
 		}
+		dfsVisited[sv]=false;
 		return false;
 	}
 
