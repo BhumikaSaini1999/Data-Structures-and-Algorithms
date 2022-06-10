@@ -1,11 +1,13 @@
 package Graphs;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
-//Time->O(V+E),Space->O(V)
-//Here Graph is Undirected and disconnected
-public class CycleDetectionDFS {
+//Time=>O(V+E) and Space=>O(V)=>colour array
+//Here we are taking two colours=>0/1
+public class BipartiteCheck_DFS {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -30,42 +32,42 @@ public class CycleDetectionDFS {
 			adj.get(source).add(destination);
 			adj.get(destination).add(source);
 		}
-		
-		System.out.println(cycleDetection(adj,v));
-
+		System.out.println(bipartiteCheck(adj,v));
 	}
 
-	private static boolean cycleDetection(ArrayList<ArrayList<Integer>> adj, int v) {
+	private static boolean bipartiteCheck(ArrayList<ArrayList<Integer>> adj, int v) {
 		// TODO Auto-generated method stub
-		boolean visited[]=new boolean[v+1];
+		int colour[]=new int[v+1];
 		for(int i=0;i<=v;i++)
+			colour[i]=-1;
+	
+		for(int i=0;i<v;i++)
 		{
-			if(!visited[i])
+			if(colour[i]==-1)
 			{
-				if(detectCycle(i,-1,visited,adj))
-				{
-					return true;
-				}
+				if(!bipartite(adj,i,0,colour))
+					return false;
 			}
 		}
-		return false;
+		return true;
 	}
 
-	private static boolean detectCycle(int sv, int parent, boolean[] visited, ArrayList<ArrayList<Integer>> adj) {
-		// TODO Auto-generated method stub
-		visited[sv]=true;
-		
+	private static boolean bipartite(ArrayList<ArrayList<Integer>> adj, int sv, int col, int[] colour) {
+		colour[sv]=col;
 		for(Integer i:adj.get(sv))
 		{
-			if(!visited[i])
+			if(colour[i]==-1)
 			{
-				if(detectCycle(i,sv,visited,adj))
-					return true;
+				if(colour[sv]==0)
+					col=1;
+				else col=0;
+				if(!bipartite(adj,i,col,colour))
+					return false;
 			}
-			else if(parent!=i)
-				return true;
+			else if(colour[i]==colour[sv])
+				return false;
 		}
-		return false;
+		return true;
 	}
 
 }
