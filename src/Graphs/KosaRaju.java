@@ -60,7 +60,7 @@ public class KosaRaju {
 		Stack<Integer> stack=new Stack<Integer>();
 		boolean visited[]=new boolean[v];
 		
-		// Finding out TopoSort using DFS
+		// Finding out TopoSort using DFS=>Using DFS store vertices in a stack as per their finish time
 		for(int i=0;i<v;i++)
 		{
 			if(!visited[i])
@@ -86,17 +86,20 @@ public class KosaRaju {
 		}
 		
 		//DFS according to Finishing Time
+		int count=0;
 		while(stack.size()>0)
 		{
 			int top=stack.peek();
 			stack.pop();
 			if(!visited[top])
 			{
+				count++;
 				System.out.print("SCC: ");
 				revDfs(top,transpose,visited);
 				System.out.println();
 			}
 		}
+		System.out.println("Count="+count);
 	}
 
 
