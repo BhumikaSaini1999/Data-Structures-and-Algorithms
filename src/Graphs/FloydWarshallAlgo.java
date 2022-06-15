@@ -3,6 +3,8 @@ package Graphs;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//Time=>O(V^3)
+//Space=>O(V^2)
 class Pairs
 {
 	int node;
