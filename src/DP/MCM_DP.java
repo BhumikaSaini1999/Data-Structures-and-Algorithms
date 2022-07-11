@@ -44,9 +44,9 @@ public class MCM_DP {
 					{
 						//Left=>i to k and Right=>k+1 to j
 						//Left Dimensions=>i * k+1 and Right Dimensions=>k+1 * j+1
-						int lc=dp[i][k];
-						int rc=dp[k+1][j];
-						int mc=arr[i]*arr[k+1]*arr[j+1];
+						int lc=dp[i][k];  //left cost
+						int rc=dp[k+1][j]; //right cost
+						int mc=arr[i]*arr[k+1]*arr[j+1]; //multiplication cost
 						
 						int cost=lc+rc+mc;
 						if(cost<min)
