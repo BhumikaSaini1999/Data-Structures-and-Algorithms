@@ -2,7 +2,7 @@ package DP;
 
 import java.util.Scanner;
 
-//Time=>O(n^2)
+//Time=>O(n^3)
 //Space=>O(n^2)+O(n)=>storage space+recursive call stack space
 public class PalindromePartitioningMemOptimal {
 
