@@ -4,26 +4,39 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 //T(C)=>O(n^3)
-//S(C)=>O(n)
+//S(C)=>O(n^3)
 
 
-public class BooleanParenthesization_MapMem {
-
-	static HashMap<String,Integer> map=new HashMap<String,Integer>();
+public class BooleanParenthesization_3DMatrix {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		Scanner sc=new Scanner(System.in);
 		String str=sc.next();
 		
-		map.clear();
-		//Initial Index of string=i=0, Final Index of string=j=n-1
-		//Passing true to check the number of ways in which whole expression can be evaluated as true, Its important to pass this boolean variable bcoz
-		//We have | and ^ operator in which its equally important to know the number of times an expression can come as false 
-		System.out.println(solve(str,0,str.length()-1,true));
+		//3D Matrix=>as there are three changing variables i,j,isTrue
+		//value of i,j can vary from 0 to n-1(n=length of string) , Value of isTrue can be 2 either T/F
+		int[][][] storage=new int[str.length()][str.length()][2];
+		
+		for(int i=0;i<str.length();i++)
+		{
+			for(int j=0;j<str.length();j++)
+			{
+				for(int k=0;k<2;k++)
+				{
+					storage[i][j][k]=-1;
+				}
+			}
+		}
+		System.out.println(solve(str,0,str.length()-1,true,storage));
 	}
 
-	private static int solve(String str, int i, int j, boolean isTrue) {
+	private static int solve(String str, int i, int j, boolean isTrue, int[][][] storage) {
+		
+		if(storage[i][j][0]!=-1 && !isTrue) //representing False Case
+			return storage[i][j][0];
+		if(storage[i][j][1]!=-1 && isTrue) //representing True Case
+			return storage[i][j][1];
 		
 		//out of range return 0
 		if(i>j)
@@ -50,34 +63,13 @@ public class BooleanParenthesization_MapMem {
 		}
 		
 		
-		
-		//Setting Map=>Here key consist of i,j and isTrue=>Which will give unique key
-		String keyString=Integer.toString(i)+" "+Integer.toString(j)+" "+Boolean.toString(isTrue);
-		if(map.containsKey(keyString))
-			return map.get(keyString);
-		else
-		{
-			map.put(keyString,0);
-		}
-		
-		
-		
-		
-		
-		
-		
-		
 		int ans=0;
-		
-		//k variable is taken here to move onto operator
-		//K would obviously be at 2nd position after Ist character and likewise in the whole expression it would be at i+1 if str starts at i pos
-		//k+=2 Here we are increamenting k as 2 bcoz its always at 2nd position
 		for(int k=i+1;k<=j-1;k+=2)
 		{
-			int leftTrue=solve(str,i,k-1,true); //Number of ways for the left expression to be true
-			int rightFalse=solve(str,k+1,j,false); //Number of ways for the right expression to be false
-			int leftFalse=solve(str,i,k-1,false); //Number of ways for the left expression to be false
-			int rightTrue=solve(str,k+1,j,true); //Number of ways for the right expression to be true
+			int leftTrue=solve(str,i,k-1,true,storage); //Number of ways for the left expression to be true
+			int rightFalse=solve(str,k+1,j,false,storage); //Number of ways for the right expression to be false
+			int leftFalse=solve(str,i,k-1,false,storage); //Number of ways for the left expression to be false
+			int rightTrue=solve(str,k+1,j,true,storage); //Number of ways for the right expression to be true
 			
 			
 			//Based on operator calculate ans
@@ -119,14 +111,17 @@ public class BooleanParenthesization_MapMem {
 					//Number of ways to make current exp false
 					ans+=leftFalse*rightFalse+leftTrue*rightFalse+leftFalse*rightTrue;
 				}
-			}
-			
-			
+			}	
 		}
 		
-		map.put(keyString, ans);
-		//Now returning ans
-		return ans;
+		if(isTrue)
+		{
+			return storage[i][j][1]=ans;
+		}
+		else
+		{
+			return storage[i][j][0]=ans;
+		}
 	}
 
 }
