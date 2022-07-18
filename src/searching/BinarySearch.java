@@ -2,8 +2,10 @@ package searching;
 
 import java.util.Scanner;
 
+
 //Time=>O(logn)
 //Space=>O(1)
+//Binary search applied only on sorted array
 public class BinarySearch {
 
 	public static void main(String[] args) {
@@ -34,9 +36,10 @@ public class BinarySearch {
 				break;
 			}
 			
-			if(x<arr[mid])
+			if(x<arr[mid]) //if element is less than arr[mid], we should search in left part of array
 				end=mid-1;
-			if(x>arr[mid])
+			
+			if(x>arr[mid]) //if element is greater than arr[mid], we should search in right part of array
 				start=mid+1;
 		}
 		
