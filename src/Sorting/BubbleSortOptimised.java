@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 
 //Time in Worst Case=>O(n^2)
-//Time in Best case=>O(1)
+//Time in Best case=>O(n)
 //Space=>O(1)
 //Bubble Sort is Inplace Sorting Algo.
 public class BubbleSortOptimised {
