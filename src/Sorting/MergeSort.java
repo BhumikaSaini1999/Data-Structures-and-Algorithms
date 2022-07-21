@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 //Time=>O(nlogn)
 //Space=>O(n)
+//Its not In-Place algorithm.
 public class MergeSort {
 
 	public static void main(String[] args) {
