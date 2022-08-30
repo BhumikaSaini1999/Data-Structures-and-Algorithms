@@ -28,17 +28,19 @@ public class MergeSort {
 
 	}
 
+	//O(logn)
 	private static void mergeSort(int[] arr, int l, int h) {
 		// TODO Auto-generated method stub
 		if(l<h)
 		{
-			int mid=(l+h)/2;
+			int mid=(l+h)/2; //l+(h-l)/2;=>mostly this is preferred because in some of the platforms (l+h)/2=>give extreme high values if l and h are very large
 			mergeSort(arr,l,mid);
 			mergeSort(arr,mid+1,h);
 			merge(arr,l,mid,h);
 		}	
 	}
 
+	//O(n)
 	private static void merge(int[] arr, int l, int mid, int h) {
 		// TODO Auto-generated method stub
 		
