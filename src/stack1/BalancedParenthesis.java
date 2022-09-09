@@ -7,6 +7,15 @@ import java.util.Stack;
 
 //Time=>O(n), Space=>O(n)
 //We have used stack here as an extra space
+
+//Multiple Cases
+// (()()())
+// ()()(()
+// (((
+// ))
+// (){{
+// ())))
+// ()()(
 public class BalancedParenthesis {
 
 	public static void main(String[] args) {
