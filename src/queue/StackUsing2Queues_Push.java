@@ -3,6 +3,8 @@ package queue;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import Stack.StackEmptyException;
+
 //When push operation is ineffecient
 public class StackUsing2Queues_Push {
 
@@ -33,25 +35,25 @@ public class StackUsing2Queues_Push {
 		q2 = temp;
 	}
 
-	public int pop() throws QueueEmptyException // O(1)
+	public int pop() throws StackEmptyException // O(1)
 	{
 		if (q2.size() == 0) {
-			throw new QueueEmptyException();
+			throw new StackEmptyException();
 		}
 		int temp = q2.remove();
 		return temp;
 	}
 
-	public int top() throws QueueEmptyException // O(1)
+	public int top() throws StackEmptyException // O(1)
 	{
 		if (q2.size() == 0) {
-			throw new QueueEmptyException();
+			throw new StackEmptyException();
 		}
 		int temp = q2.peek();
 		return temp;
 	}
 
-	public static void main(String[] args) throws QueueEmptyException {
+	public static void main(String[] args) throws StackEmptyException {
 		// TODO Auto-generated method stub
 		StackUsing2Queues_Push stack = new StackUsing2Queues_Push();
 

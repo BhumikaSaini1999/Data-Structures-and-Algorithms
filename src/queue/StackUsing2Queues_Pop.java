@@ -3,6 +3,8 @@ package queue;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import Stack.StackEmptyException;
+
 //When pop operation is ineffecient
 public class StackUsing2Queues_Pop {
 
@@ -24,10 +26,10 @@ public class StackUsing2Queues_Pop {
 		q1.add(element);
 	}
 
-	public int pop() throws QueueEmptyException // O(n)
+	public int pop() throws StackEmptyException // O(n)
 	{
 		if (q1.size() == 0) {
-			throw new QueueEmptyException();
+			throw new StackEmptyException();
 		}
 
 		int n = q1.size() - 1;
@@ -45,10 +47,10 @@ public class StackUsing2Queues_Pop {
 		return res;
 	}
 
-	public int top() throws QueueEmptyException // O(n)
+	public int top() throws StackEmptyException // O(n)
 	{
 		if (q1.size() == 0) {
-			throw new QueueEmptyException();
+			throw new StackEmptyException();
 		}
 
 		int n = q1.size() - 1;
@@ -67,7 +69,7 @@ public class StackUsing2Queues_Pop {
 		return res;
 	}
 
-	public static void main(String[] args) throws QueueEmptyException {
+	public static void main(String[] args) throws StackEmptyException{
 		// TODO Auto-generated method stub
 
 		StackUsing2Queues_Pop stack = new StackUsing2Queues_Pop();
